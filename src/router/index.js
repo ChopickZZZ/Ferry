@@ -1,24 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import FerryMain from '../views/FerryMain'
+import FerryTrucksInfo from '../views/FerryTrucksInfo'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    component: FerryMain
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/trucks',
+    component: FerryTrucksInfo
+  },
+  {
+    path: '/notFound(.*)',
+    redirect: FerryMain
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    }
+    return { left: 0, top: 0 }
+  },
   routes
 })
 
